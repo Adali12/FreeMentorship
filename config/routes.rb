@@ -10,4 +10,7 @@ Rails.application.routes.draw do
     resources :meetings
   end
   root 'sessions#new'
+  resources :conversations do
+    resources :messages
+  end
 end

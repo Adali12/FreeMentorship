@@ -15,6 +15,8 @@
 
   <tbody>
     <% @meetings.each do |meeting| %>
+      <% if logged_in? %>
+      <% if current_user.id == meeting.user_id %>
       <tr>
         <td><%= meeting.question %></td>
         <td><%= meeting.meetingEmail %></td>
@@ -23,7 +25,10 @@
         <td><%= link_to 'Show', meeting %></td>
         <td><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
         <td><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%= link_to "Message #{meeting.meetingEmail}", conversations_path(sender_id: current_user.id, recipient_id: meeting.user.id), method: 'post' %>
       </tr>
+    <% end %>
+    <% end %>
     <% end %>
   </tbody>
 </table>
