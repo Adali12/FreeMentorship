@@ -8,11 +8,12 @@ class Admin::UsersController < ApplicationController
   end
   # GET /users
   # GET /users.json
-  def index
+  def index  
+User.find_each do |user|
     @users = User.all
+end
     @meetings = Meeting.all
   end
-
   # GET /users/1
   # GET /users/1.json
   def show

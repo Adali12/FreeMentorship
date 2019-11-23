@@ -4,6 +4,9 @@ class MeetingsController < ApplicationController
   # GET /meetings
   # GET /meetings.json
   def index
+    User.find_each do |user|
+      @users = User.all.where("mentor", "%#{params[:users]} %",true)
+  end
     @meetings = Meeting.all
   end
 

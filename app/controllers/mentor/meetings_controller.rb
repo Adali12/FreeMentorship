@@ -10,6 +10,7 @@ class Mentor::MeetingsController < ApplicationController
   # GET /meetings
   # GET /meetings.json
   def index
+   
     @meetings = Meeting.all
   end
 
