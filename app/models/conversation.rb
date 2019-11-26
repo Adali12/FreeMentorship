@@ -21,4 +21,18 @@ class Conversation < ApplicationRecord
       User.find(sender_id)
     end
   end
+  after_commit :create_notifications, on: :create
+
+  private
+
+  def create_notifications
+    Notification.create do |notification|
+      notification.notify_type = 'message'
+      notification.actor = self.user
+      notification.user = self.message.user
+      notification.target = self
+      notification.second_target = self.message
+    end
+  end
+  
 end

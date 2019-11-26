@@ -1,43 +1,43 @@
+
 <%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-<html>
-  <head>
-
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-  </head>
-<body id="LoginForm">
-<div class="container">
-<h1 class="form-heading">Free mentorship</h1>
-<div class="login-form">
-<div class="main-div">
-    <div class="panel">
-    <h2>Login</h2>
-   <p>Please enter your email and password</p>
-   </div>
-    <form id="Login">
-
-        <div class="form-group">
-            <%= f.email_field :email, class:"form-control",id:"inputEmail", placeholder:"Email Address" %>
-        </div>
-
-        <div class="form-group">
-            <%= f.password_field :password, class:"form-control",id:"inputPassword", placeholder:"Password" %>
-        </div> 
-        <%= f.submit "Log in",class:"btn btn-primary" %>
-        <p>Don't have an account?<br> <%= link_to "Sign up", new_user_path,class:"btn btn-primary" %>
-        <div class="forgot">
-        <a href="">Forgot password?</a>
+  <div class="login-wrap">
+	<div class="login-html">
+	<label for="tab-1" class="tab">Free Mentorship</label><br>
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Log In</label>
+		<input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">Forgot Password</label>
+		<div class="login-form">
+			<div class="sign-in-htm">
+				<div class="group">
+				<p id="notice"><%= notice %></p>
+					<label for="user" class="label">Username or Email</label>
+          <%= f.email_field :email,type:"text", class:"input",id:"inputEmail", placeholder:"Email Address" %>
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Password</label>
+          <%= f.password_field :password,type:"password", class:"input",id:"inputPassword", placeholder:"Password" %>
+				</div>
+				<div class="group">
+		  <%= f.submit "Log in",type:"submit",class:"button",value:"Sign In" %>
+		  
+		  <p>Don't have an account?<br><%= link_to "Sign up", new_user_path,class:"btn btn-primary" %>
+				</div>
+				<div class="hr"></div>
+			</div>
+			<div class="for-pwd-htm">
+				<div class="group">
+					<label for="user" class="label">Username or Email</label>
+					<input id="user" type="text" class="input">
+				</div>
+				<div class="group">
+					<input type="submit" class="button" value="Reset Password">
+				</div>
+				<div class="hr"></div>
+			</div>
+		</div>
+	</div>
 </div>
-    </form>
-    </div>
-<p class="botto-text"> Designed by @Adali</p>
-</div></div></div>
-</body>
-</html>
 <% end %>

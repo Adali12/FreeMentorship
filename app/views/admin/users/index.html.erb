@@ -1,7 +1,13 @@
 <p id="notice"><%= notice %></p>
-
+<%= link_to 'inbox', conversations_path %>
 <h1>Users</h1>
-
+<%= search_form_for @search do |form| %>
+  <%= form.label :name_cont,"Search by First Name" %><br />
+  <%= form.text_field :firstName_cont %><br />
+  <%= form.label :name_cont,"Search by Last Name" %><br />
+  <%= form.text_field :lastName_cont %><br />
+  <div class="actions1"><%= form.submit "search",class:"btn btn-info" %></div>
+<%end%>
 <table>
   <thead>
     <tr>
@@ -17,7 +23,6 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @users.each do |user| %>
       <% if user.id != current_user.id %>
@@ -40,14 +45,12 @@
         <td>
         <%= link_to 'changed as user',admin_user_path(user, :mentor => false),method: :patch  %>
       </td> 
-      <%= link_to user.firstName, user %>
-      <%= link_to 'message', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post %>
+      <td><%= link_to user.firstName, user %></td>
+      <td><%= link_to 'message', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post %></td>
       </tr>
     <% end %>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
 <%= link_to 'New User', new_user_path %>

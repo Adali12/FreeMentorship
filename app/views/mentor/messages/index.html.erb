@@ -22,7 +22,6 @@
     <% end %>
   <% end %>
 </div>
-
 <%= form_with(model: [@conversation, @message]) do |f| %>
   <div class="field">
     <%= f.text_area :body, class: "form-control" %>
@@ -32,3 +31,6 @@
     <%= f.submit "send a message" %>
   </div>
 <% end %>
+
+
+
