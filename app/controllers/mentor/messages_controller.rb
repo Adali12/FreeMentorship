@@ -1,15 +1,13 @@
-class MessagesController < ApplicationController
+class Mentor::MessagesController < ApplicationController
     before_action do
       @conversation = Conversation.find(params[:conversation_id])
     end
-  
     def index
       # These are statements written in the index action
       # To make it easier to understand what you are doing in each part
       # Although it is written like this, because it is a little redundant code to use it in actual field
       # If you have the extra resources, try to refactor your code!
       @messages = @conversation.messages
-    
       if @messages.length > 10
         @over_ten = true
         @messages = Message.where(id: @messages[-10..-1].pluck(:id))

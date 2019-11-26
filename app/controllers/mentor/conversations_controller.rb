@@ -1,4 +1,4 @@
-class ConversationsController < ApplicationController
+class Mentor::ConversationsController < ApplicationController
   def index
     @conversations = Conversation.all
   end

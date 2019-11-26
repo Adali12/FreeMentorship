@@ -9,14 +9,14 @@ class SessionsController < ApplicationController
         redirect_to admin_users_path
         flash[:notice] = 'Welcome administrator'
       elsif user.mentor?
-        redirect_to mentor_meetings_path(user.id)
+        redirect_to mentor_users_path(user.id)
         flash[:notice] = 'Welcome mentor pages'
       else
         flash[:notice] = 'welcome to sessions !'
-      redirect_to meetings_path(user.id)
+      redirect_to users_path(user.id)
     end
     else
-      flash[:danger] = 'Failed to login'
+      flash[:error] = 'Invalid email or password'
       render 'new'
     end
 

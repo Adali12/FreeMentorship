@@ -10,19 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_141512) do
+ActiveRecord::Schema.define(version: 2019_11_25_122616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "meetings", force: :cascade do |t|
-    t.string "question"
-    t.string "meetingEmail"
-    t.string "status"
-    t.bigint "user_id"
+  create_table "conversations", force: :cascade do |t|
+    t.integer "sender_id"
+    t.integer "recipient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_meetings_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.bigint "conversation_id"
+    t.bigint "user_id"
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,5 +48,6 @@ ActiveRecord::Schema.define(version: 2019_11_22_141512) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "meetings", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
 end

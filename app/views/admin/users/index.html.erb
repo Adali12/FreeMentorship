@@ -20,6 +20,7 @@
 
   <tbody>
     <% @users.each do |user| %>
+      <% if user.id != current_user.id %>
       <tr>
         <td><%= user.firstName %></td>
         <td><%= user.lastName %></td>
@@ -30,16 +31,19 @@
         <td><%= user.expertise %></td>
         <td><%= user.admin %></td>
         <td><%= user.mentor %></td>
-        <td><%= link_to 'Show', admin_user_path(user) %></td>
-        <td><%= link_to 'Edit',  edit_admin_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show',admin_user_path(user) %></td>
+        <td><%= link_to 'Edit',edit_admin_user_path(user) %></td>
+        <td><%= link_to 'Destroy',admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td>
-          <%= link_to 'changed as mentor', admin_user_path(user, :mentor => true),method: :patch  %>
+          <%= link_to 'changed as mentor',admin_user_path(user, :mentor => true),method: :patch  %>
         </td> 
         <td>
-        <%= link_to 'changed as user', admin_user_path(user, :mentor => false),method: :patch  %>
+        <%= link_to 'changed as user',admin_user_path(user, :mentor => false),method: :patch  %>
       </td> 
+      <%= link_to user.firstName, user %>
+      <%= link_to 'message', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post %>
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>

@@ -12,7 +12,7 @@ class Admin::UsersController < ApplicationController
 User.find_each do |user|
     @users = User.all
 end
-    @meetings = Meeting.all
+    # @meetings = Meeting.all
   end
   # GET /users/1
   # GET /users/1.json
@@ -32,39 +32,37 @@ end
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        session[:user_id]= @user.id
+        format.html { redirect_to admin_users_path(@user), notice: 'User was successfully created.' }
+        format.json { render :index, status: :created, location: admin_users_path(@user) }
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
-  def update
-    if params[:mentor]
-      @team.update(mentor: params[:mentor])
-      redirect_to admin_users_path, notice: 'this user become mentor'
-    elsif @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+  # def update
+  #   if params[:mentor]
+  #     @user.update(mentor: params[:mentor])
+  #     redirect_to admin_users_path, notice: 'user changed!!'
+  #   elsif @user.update(user_params)
+  #       redirect_to admin_users_path(@user), notice: 'User was successfully updated.'
+  #     else
+  #     render :edit 
     
-    end
-  end
+  #   end
+  # end
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
   if params[:mentor]
     @user.update(mentor: params[:mentor])
-      redirect_to @user, notice: 'user changed'
+      redirect_to admin_user_path(@user), notice: 'user changed'
   elsif @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        format.html { redirect_to admin_user_path(@user), notice: 'User was successfully updated.' }
+        format.json { render :index, status: :ok, location: admin_user_path(@user) }
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
