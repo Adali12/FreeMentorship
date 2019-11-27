@@ -1,62 +1,51 @@
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
-<div class="navbar navbar-inverse">
-    <div class="navbar-inner">
-		<div class="container-fluid">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-			<div class="nav-collapse collapse">
-				<ul class="nav">
-          <li><%= link_to 'Home', admin_users_path %></li>
-          
-					<li class="divider-vertical"></li>
-          <li class="active"><a href="#"><i class="icon-file icon-white"></i>About Us</a></li>
-          <li class="divider-vertical"></li>
-					<li class="active"><a href="#"><i class="icon-file icon-white"></i>Contact Us</a></li>
-					<li class="divider-vertical"></li>
-          <li><%= link_to 'inbox', conversations_path %></li>
-          <li><%= link_to pluralize(Message.where('read=false').count,'Notification'), notifications_path %></li>
-				
-				</ul>
-				<div class="btn-group pull-right">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-          <% @users.each do |user| %>
-            <% if user.id == current_user.id %>
-						<i class="icon-user"></i><%= user.lastName %><span class="caret"></span>
-          </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<%= link_to 'Home', admin_users_path %>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a class="nav-link" href="#">About As <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="#">Contact As <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item active">
+    <%= link_to 'inbox', conversations_path,class:"nav-link" %>
+    </li>
+    
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <% @users.each do |user| %>
+        <% if user.id == current_user.id %>
+        <i class="icon-user"></i><%= user.lastName %>
+        <% end %>
           <% end %>
-          <% end %>
-					<ul class="dropdown-menu">
-						<li><a href="#"><i class="icon-wrench"></i> Settings</a></li>
-            <li class="divider"></li>
-            <li><%= link_to "Profile",user_path(current_user.id)%></li>
-						<li><%= link_to "Logout", session_path(current_user.id), method: :delete %></li>
-					</ul>
-				</div>
-			<!--/.nav-collapse -->
-		</div>
-		<!--/.container-fluid -->
-	</div>
-	<!--/.navbar-inner -->
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <%= link_to "Profile",user_path(current_user.id)%>
+        
+        <div class="dropdown-divider"></div>
+        <%= link_to "Logout", session_path(current_user.id), method: :delete %>
+      </div>
+    </li>
+    <li class="nav-item">
+      <%= link_to pluralize(Message.where('read=false').count,'Notification'), notifications_path,class:"nav-link disabled" %>
+    </li>
+  </ul>
+  <form class="form-inline my-2 my-lg-0">
+  <%= search_form_for @search do |form| %>
+    <%= form.text_field :firstName_or_lastName_cont, class:"form-control mr-sm-2",placeholder:"Search"%>
+    <div class="actions1"><%= form.submit "search",class:"btn btn-outline-success my-2 my-sm-0", type:"submit" %></div>
+  <%end%>
+  </form>
 </div>
-<!--/.navbar -->
-
+</nav>
 <p id="notice"><%= notice %></p>
 <h1>Users</h1>
-<%= search_form_for @search do |form| %>
-  <%= form.label :name_cont,"Search by First Name" %><br />
-  <%= form.text_field :firstName_or_lastName_cont, placeholder:"Search by firstN OR LASTNAME" %><br />
-  <div class="actions1"><%= form.submit "search",class:"btn btn-info" %></div>
-<%end%>
-<div class="card-body">
-<div class="card" >
-<table class="table-striped table-bordered">
+<table>
   <thead>
     <tr>
       <th>Firstname</th>
