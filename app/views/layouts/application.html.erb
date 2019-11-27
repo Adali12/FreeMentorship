@@ -7,18 +7,14 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'sessions', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'users', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
   <% flash.each do |key, value| %>
     <%= content_tag(:div, value, class: "#{key}") %>
   <% end %>
-  <% if logged_in? %>
-    <%= link_to "Profile", user_path(current_user.id)%>
-    <%= link_to "Logout", session_path(current_user.id), method: :delete %>
- <li><%= link_to pluralize(Message.where('read=false').count,'Notification'), notifications_path %></li>
-  <% else %>
-  <% end %>
+  
   <%= yield %>
 </body>
 </html>

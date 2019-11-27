@@ -28,8 +28,8 @@ class Conversation < ApplicationRecord
   def create_notifications
     Notification.create do |notification|
       notification.notify_type = 'message'
-      notification.actor = self.user
-      notification.user = self.message.user
+      notification.actor = self.conversation
+      notification.user = self.message.conversation
       notification.target = self
       notification.second_target = self.message
     end
