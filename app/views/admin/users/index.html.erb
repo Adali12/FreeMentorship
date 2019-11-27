@@ -26,8 +26,12 @@
 				</ul>
 				<div class="btn-group pull-right">
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i> admin	<span class="caret"></span>
-					</a>
+          <% @users.each do |user| %>
+            <% if user.id == current_user.id %>
+						<i class="icon-user"></i><%= user.lastName %><span class="caret"></span>
+          </a>
+          <% end %>
+          <% end %>
 					<ul class="dropdown-menu">
 						<li><a href="#"><i class="icon-wrench"></i> Settings</a></li>
             <li class="divider"></li>
